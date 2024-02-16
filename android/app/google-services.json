@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1093217173324",
+    "project_id": "taskifie",
+    "storage_bucket": "taskifie.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1093217173324:android:27d9732bc631774dea99e9",
+        "android_client_info": {
+          "package_name": "com.example.taskifie"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQHzGyTvtF76HJcXnXcjPraHFLw4MSpUI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

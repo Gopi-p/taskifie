@@ -11,7 +11,7 @@ class StartUpService {
   /// This should be called earliest as possible to maintain the proper app lifecycle.
   initAppBeforeAuth() async {
     setPathUrlStrategy();
-    await initializeFirebaseApp();
+    // await initializeFirebaseApp();
   }
 
   Future<void> initializeFirebaseApp() async {

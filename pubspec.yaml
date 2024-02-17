@@ -64,8 +64,10 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
   assets:
     - assets/
+    - assets/images/logos/
 
   fonts:
     - family: Poppins
@@ -78,3 +80,6 @@ flutter:
           weight: 400
         - asset: assets/fonts/poppins/Poppins-SemiBold.ttf
           weight: 600
+    - family: iconsax
+      fonts:
+        - asset: assets/fonts/tandemloop_icons_new.ttf

@@ -17,23 +17,23 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
           page: LoginRoute.page,
           path: '/login',
-          guards: [LoginRouteGuard()],
+          // guards: [LoginRouteGuard()],
+          initial: true,
         ),
         AutoRoute(
           page: SignUpRoute.page,
           path: '/signup',
-          guards: [LoginRouteGuard()],
+          // guards: [LoginRouteGuard()],
         ),
         AutoRoute(
           page: HomeRoute.page,
           path: '/home',
-          initial: true,
-          guards: [AuthGuard()],
+          // guards: [AuthGuard()],
         ),
         AutoRoute(
           page: UserProfileRoute.page,
           path: '/profile',
-          guards: [AuthGuard()],
+          // guards: [AuthGuard()],
         ),
       ];
 }

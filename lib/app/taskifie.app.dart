@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:taskifie/app/route/app_router.dart';
 import 'package:taskifie/shared/data/app_details.data.dart';
-import 'package:taskifie/shared/functions/theme.function.dart';
+import 'package:taskifie/shared/data/theme.data.dart';
 
 class Taskifie extends StatelessWidget {
   Taskifie({super.key});
@@ -12,7 +12,9 @@ class Taskifie extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: AppDetails.name,
-      theme: getAppThemeData(),
+      theme: lightThemeData,
+      darkTheme: darkThemeData,
+      themeMode: ThemeMode.light,
       routerConfig: _appRouter.config(),
       debugShowCheckedModeBanner: false,
     );

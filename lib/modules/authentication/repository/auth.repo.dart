@@ -9,6 +9,28 @@ Future<bool> loginWithEmailAndPassword({
   password = String,
 }) async {
   try {
+    await FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: email, password: password);
+
+    return true;
+  } on FirebaseAuthException catch (e) {
+    if (e.code == 'user-not-found') {
+      
+      // showToast(
+      //     message: 'Account doesn\'t exists. Try Signup', type: ToastType.info);
+      print('No user found for that email.');
+    } else if (e.code == 'wrong-password') {
+      // showToast(message: 'Invalid credentials', type: ToastType.error);
+    }
+    return false;
+  }
+}
+
+Future<bool> signupWithEmailAndPassword({
+  email = String,
+  password = String,
+}) async {
+  try {
     print(email + password);
 
     await FirebaseAuth.instance

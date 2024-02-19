@@ -3,6 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:taskifie/app/route/app_router.dart';
+import 'package:taskifie/shared/widgets/snackbar.dart';
 
 Future<bool> loginWithEmailAndPassword({
   email = String,
@@ -15,12 +16,13 @@ Future<bool> loginWithEmailAndPassword({
     return true;
   } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {
-      
-      // showToast(
-      //     message: 'Account doesn\'t exists. Try Signup', type: ToastType.info);
+      showSnackBar(
+        msg: 'Account doesn\'t exists. Try Signup',
+        type: ToastType.info,
+      );
       print('No user found for that email.');
     } else if (e.code == 'wrong-password') {
-      // showToast(message: 'Invalid credentials', type: ToastType.error);
+      showSnackBar(msg: 'Invalid credentials', type: ToastType.error);
     }
     return false;
   }
@@ -39,11 +41,11 @@ Future<bool> signupWithEmailAndPassword({
     return true;
   } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {
-      // showToast(
-      //     message: 'Account doesn\'t exists. Try Signup', type: ToastType.info);
+      showSnackBar(
+          msg: 'Account doesn\'t exists. Try Signup', type: ToastType.info);
       print('No user found for that email.');
     } else if (e.code == 'wrong-password') {
-      // showToast(message: 'Invalid credentials', type: ToastType.error);
+      showSnackBar(msg: 'Invalid credentials', type: ToastType.error);
     }
     return false;
   }
@@ -111,7 +113,7 @@ Future<void> logoutUser({
 
   try {
     await FirebaseAuth.instance.signOut();
-    // if (!silent) showToast(message: 'Logged out');
+    if (!silent) showSnackBar(msg: 'Logged out');
     if (navigateToLogin) {
       if (ctx != null) {
         // ignore: use_build_context_synchronously
@@ -120,6 +122,6 @@ Future<void> logoutUser({
     }
   } on FirebaseAuthException catch (e) {
     print(e);
-    // showToast(message: 'Error', type: ToastType.error);
+    showSnackBar(msg: 'Error', type: ToastType.error);
   }
 }

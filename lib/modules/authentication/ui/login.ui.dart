@@ -111,21 +111,20 @@ class LoginPage extends StatelessWidget {
                       return PrimaryButton(
                         text: 'Login',
                         onTap: () async {
-                          loginProvider.toggleLoginButtonLoading();
-                          bool isLogInSuccessful =
-                              await loginProvider.submitLoginForm();
-                          loginProvider.toggleLoginButtonLoading();
-                          if (isLogInSuccessful) {
-                            // ignore: use_build_context_synchronously
-                            showSnackBar(
-                              context,
-                              msg: 'Login successful',
-                              type: ToastType.success,
-                            );
+                          // loginProvider.toggleLoginButtonLoading();
+                          // bool isLogInSuccessful =
+                          //     await loginProvider.submitLoginForm();
+                          // loginProvider.toggleLoginButtonLoading();
+                          // if (isLogInSuccessful) {
+                          //   // ignore: use_build_context_synchronously
+                          //   showSnackBar(
+                          //     msg: 'Login successful',
+                          //     type: ToastType.success,
+                          //   );
 
-                            // ignore: use_build_context_synchronously
-                            context.router.replaceAll([const HomeRoute()]);
-                          }
+                          //   // ignore: use_build_context_synchronously
+                          context.router.replaceAll([const HomeRoute()]);
+                          // }
                         },
                         contentAlignment: MainAxisAlignment.center,
                         loading: loginProvider.isLoginButtonLoading,
@@ -154,8 +153,4 @@ class LoginPage extends StatelessWidget {
       ),
     );
   }
-
-  
 }
-
-

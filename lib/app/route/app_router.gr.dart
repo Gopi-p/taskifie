@@ -15,10 +15,16 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
-    CreateEditTaskRoute.name: (routeData) {
+    CreateTaskRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const CreateEditTaskPage(),
+        child: const CreateTaskPage(),
+      );
+    },
+    EditTaskRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const EditTaskPage(),
       );
     },
     HomeRoute.name: (routeData) {
@@ -39,6 +45,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const SignUpPage(),
       );
     },
+    SplashScreenRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const SplashScreenPage(),
+      );
+    },
     TaskDetailsRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -55,15 +67,29 @@ abstract class _$AppRouter extends RootStackRouter {
 }
 
 /// generated route for
-/// [CreateEditTaskPage]
-class CreateEditTaskRoute extends PageRouteInfo<void> {
-  const CreateEditTaskRoute({List<PageRouteInfo>? children})
+/// [CreateTaskPage]
+class CreateTaskRoute extends PageRouteInfo<void> {
+  const CreateTaskRoute({List<PageRouteInfo>? children})
       : super(
-          CreateEditTaskRoute.name,
+          CreateTaskRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'CreateEditTaskRoute';
+  static const String name = 'CreateTaskRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [EditTaskPage]
+class EditTaskRoute extends PageRouteInfo<void> {
+  const EditTaskRoute({List<PageRouteInfo>? children})
+      : super(
+          EditTaskRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'EditTaskRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
@@ -106,6 +132,20 @@ class SignUpRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'SignUpRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [SplashScreenPage]
+class SplashScreenRoute extends PageRouteInfo<void> {
+  const SplashScreenRoute({List<PageRouteInfo>? children})
+      : super(
+          SplashScreenRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'SplashScreenRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

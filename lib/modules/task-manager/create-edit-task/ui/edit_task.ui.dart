@@ -2,8 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
-class CreateEditTaskPage extends StatelessWidget {
-  const CreateEditTaskPage({super.key});
+class EditTaskPage extends StatelessWidget {
+  const EditTaskPage({super.key});
 
   @override
   Widget build(BuildContext context) {

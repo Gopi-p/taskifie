@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:taskifie/shared/data/typography.data.dart';
+import 'package:taskifie/shared/services/general.service.dart';
 
-void showSnackBar(
-  BuildContext context, {
+void showSnackBar({
   required String msg,
   ToastType type = ToastType.info,
 }) {
@@ -37,7 +37,7 @@ void showSnackBar(
     ),
   );
 
-  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  ScaffoldMessenger.of(GeneralService.o.getContext).showSnackBar(snackBar);
 }
 
 enum ToastType {

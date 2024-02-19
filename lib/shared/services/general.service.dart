@@ -1,7 +1,11 @@
 // ignore_for_file: avoid_print
 
+import 'package:flutter/material.dart';
+
 class GeneralService {
-  // late BuildContext _context;
+  late BuildContext _context;
+
+  BuildContext get getContext => _context;
   // final FToast _fToast = FToast();
 
   // BuildContext get context => _context;
@@ -40,10 +44,10 @@ class GeneralService {
   //   }
   // }
 
-  // void setInitialContext(BuildContext ctx) {
-  //   _context = ctx;
-  //   _fToast.init(context);
-  // }
+  void setInitialContext(BuildContext ctx) {
+    _context = ctx;
+    // _fToast.init(context);
+  }
 
   GeneralService._();
   static final GeneralService _o = GeneralService._();

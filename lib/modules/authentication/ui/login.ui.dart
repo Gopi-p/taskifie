@@ -7,7 +7,6 @@ import 'package:taskifie/modules/authentication/provider/login.provider.dart';
 import 'package:taskifie/shared/data/assets_paths.dart';
 import 'package:taskifie/shared/data/typography.data.dart';
 import 'package:taskifie/shared/widgets/buttons.dart';
-import 'package:taskifie/shared/widgets/snackbar.dart';
 
 @RoutePage()
 class LoginPage extends StatelessWidget {

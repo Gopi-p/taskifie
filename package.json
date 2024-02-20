@@ -1,0 +1,15 @@
+{
+  "name": "taskifie",
+  "version": "1.0.0",
+  "description": "A flutter web app to manage the tasks efficiently.",
+  "main": "lib/main.dart",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:web": "flutter build web --web-renderer html && cp -r build/web deploy/"
+  },
+  "author": "Gopinath P",
+  "license": "ISC"
+}

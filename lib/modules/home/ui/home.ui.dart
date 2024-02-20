@@ -1,10 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:taskifie/app/route/app_router.dart';
 import 'package:taskifie/modules/home/provider/home.provider.dart';
 import 'package:taskifie/shared/data/typography.data.dart';
-import 'package:taskifie/shared/functions/theme.function.dart';
 
 @RoutePage()
 class HomePage extends StatelessWidget {

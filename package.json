@@ -8,8 +8,12 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:web": "flutter build web --web-renderer html && cp -r build/web deploy/"
+    "build:web": "flutter build web --web-renderer html && npm run cpy",
+    "cpy": "cpy \"build/web/**/*\" \"deploy/web\""
   },
   "author": "Gopinath P",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "cpy-cli": "^5.0.0"
+  }
 }

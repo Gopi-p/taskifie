@@ -1,6 +1,9 @@
 // ignore_for_file: avoid_print
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:taskifie/shared/configs/environments.dart';
 
 class GeneralService {
   late BuildContext _context;
@@ -11,38 +14,39 @@ class GeneralService {
   // BuildContext get context => _context;
   // FToast get fToast => _fToast;
 
-  // late final GraphQLClient qlClient;
+  late final GraphQLClient qlClient;
 
-  // /// This shouldn't be called if user is not logged in.
-  // /// So make sure this function is called in proper workflow.
-  // /// Use @StartUpService.o.initAppAfterAuth() for proper flow.
-  // Future<void> configGraphQLClient() async {
-  //   try {
-  //     final HttpLink httpLink = HttpLink(Env.graphQlEndPoint);
+  /// This shouldn't be called if user is not logged in.
+  /// So make sure this function is called in proper workflow.
+  /// Use @StartUpService.o.initAppAfterAuth() for proper flow.
+  Future<void> configGraphQLClient() async {
+    try {
+      final HttpLink httpLink = HttpLink(Env.graphQlEndPoint);
 
-  //     final AuthLink authLink = AuthLink(
-  //       getToken: () async =>
-  //           'Bearer ${await FirebaseAuth.instance.currentUser!.getIdToken()}',
-  //     );
+      final AuthLink authLink = AuthLink(
+        getToken: () async => 'Bearer ',
+        // getToken: () async =>
+        //     'Bearer ${await FirebaseAuth.instance.currentUser!.getIdToken()}',
+      );
 
-  //     final Link link = authLink.concat(httpLink);
+      final Link link = authLink.concat(httpLink);
 
-  //     qlClient = GraphQLClient(
-  //       link: link,
-  //       cache: GraphQLCache(),
-  //       defaultPolicies: DefaultPolicies(
-  //         query: Policies(
-  //           fetch: FetchPolicy.networkOnly,
-  //         ),
-  //         mutate: Policies(
-  //           fetch: FetchPolicy.networkOnly,
-  //         ),
-  //       ),
-  //     );
-  //   } catch (e) {
-  //     print('configGraphQLClient [ERR] : $e');
-  //   }
-  // }
+      qlClient = GraphQLClient(
+        link: link,
+        cache: GraphQLCache(),
+        defaultPolicies: DefaultPolicies(
+          query: Policies(
+            fetch: FetchPolicy.networkOnly,
+          ),
+          mutate: Policies(
+            fetch: FetchPolicy.networkOnly,
+          ),
+        ),
+      );
+    } catch (e) {
+      print('configGraphQLClient [ERR] : $e');
+    }
+  }
 
   void setInitialContext(BuildContext ctx) {
     _context = ctx;

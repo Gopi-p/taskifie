@@ -3,6 +3,7 @@ import 'package:taskifie/app/splash_screen.dart';
 import 'package:taskifie/modules/authentication/ui/login.ui.dart';
 import 'package:taskifie/modules/authentication/ui/signup.ui.dart';
 import 'package:taskifie/modules/home/ui/home.ui.dart';
+import 'package:taskifie/modules/settings/settings.ui.dart';
 import 'package:taskifie/modules/task-manager/create-edit-task/ui/create_task.ui.dart';
 import 'package:taskifie/modules/task-manager/create-edit-task/ui/edit_task.ui.dart';
 import 'package:taskifie/modules/task-manager/task-details/ui/task_details.ui.dart';
@@ -53,6 +54,11 @@ class AppRouter extends _$AppRouter {
                 AutoRoute(
                   page: UserProfileRoute.page,
                   path: 'profile',
+                  // guards: [AuthGuard()],
+                ),
+                AutoRoute(
+                  page: SettingsRoute.page,
+                  path: 'settings',
                   // guards: [AuthGuard()],
                 ),
               ],

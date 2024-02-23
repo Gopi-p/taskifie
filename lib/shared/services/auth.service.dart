@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:taskifie/modules/authentication/repository/auth.repo.dart';
+import 'package:taskifie/shared/interfaces/user.interface.dart';
+import 'package:taskifie/shared/repository/user.repo.dart';
 
 class AuthService {
   Map<String, dynamic>? userAuthClaims;
+  UserDetails? userDetails;
 
   void userStateChanges() {
     FirebaseAuth.instance.userChanges().listen((User? user) async {
@@ -10,10 +13,9 @@ class AuthService {
         try {
           userAuthClaims = (await user.getIdTokenResult()).claims;
 
-          // await AuthService.o.fetchUserAndOrgDetails(
-          //   orgId: userAuthClaims!['orgId'],
-          //   userId: userAuthClaims!['userId'],
-          // );
+          await AuthService.o.fetchUserAndOrgDetails(
+            userId: userAuthClaims!['userId'], //TODO
+          );
         } catch (e) {
           await logoutUser(silent: true);
         }
@@ -21,17 +23,9 @@ class AuthService {
     });
   }
 
-  // Future fetchUserAndOrgDetails({
-  //   required String userId,
-  //   required String orgId,
-  // }) async {
-  //   var usersDetails = await getUserDetailsQuery(userIds: [userId]);
-
-  //   if (usersDetails.isNotEmpty) {
-  //     userDetailsV = usersDetails[0];
-  //   }
-  //   orgDetailsV = await getOrganizationDetailsQuery(orgId: orgId);
-  // }
+  Future fetchUserAndOrgDetails({required String userId}) async {
+    userDetails = (await getUserDetailsQuery(userIds: [userId]))[0];
+  }
 
   AuthService._();
   static final AuthService _o = AuthService._();

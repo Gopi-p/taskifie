@@ -5,6 +5,9 @@ import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
 
 class Env {
+  static const String serverUrl = 'http://10.0.2.2:3001';
+  static const String graphQlEndPoint = '$serverUrl/graphql';
+
   static FirebaseOptions get firebaseConfig {
     if (kIsWeb) {
       return web;

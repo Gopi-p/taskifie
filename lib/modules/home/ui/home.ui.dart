@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:taskifie/modules/home/provider/home.provider.dart';
 import 'package:taskifie/shared/data/typography.data.dart';
+import 'package:taskifie/shared/functions/theme.function.dart';
 
 @RoutePage()
 class HomePage extends StatelessWidget {
@@ -13,13 +14,12 @@ class HomePage extends StatelessWidget {
     final HomeProvider homeProvider = context.read<HomeProvider>();
     return Scaffold(
       key: homeProvider.homeScaffoldKey,
-      // drawer: !Responsive.isDesktop(context) ? const SideMenu() : null,
-      body: const SafeArea(
+      drawer: !Responsive.isDesktop(context) ? const SideMenu() : null,
+      body: SafeArea(
         child: Row(
           children: [
-            // if (Responsive.isDesktop(context)) const SideMenu(),
-            SideMenu(),
-            Expanded(
+            if (Responsive.isDesktop(context)) const SideMenu(),
+            const Expanded(
               child: Column(
                 children: [
                   PageHeader(),
@@ -49,12 +49,13 @@ class PageHeader extends StatelessWidget {
       height: 70,
       child: Row(
         children: [
-          IconButton(
-            onPressed: () {
-              homeProvider.homeScaffoldKey.currentState!.openDrawer();
-            },
-            icon: const Icon(Icons.menu),
-          ),
+          if (!Responsive.isDesktop(context))
+            IconButton(
+              onPressed: () {
+                homeProvider.homeScaffoldKey.currentState!.openDrawer();
+              },
+              icon: const Icon(Icons.menu),
+            ),
         ],
       ),
     );
@@ -68,47 +69,60 @@ class SideMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 250,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-              // offset: Offset(0, 0),
-              // blurRadius: 20,
-              // color: Colors.black,
-              // spreadRadius: 60,
-              // blurStyle: BlurStyle.inner,
-              )
-        ],
-      ),
-      child: Column(
-        children: [
-          const SideMenuHeader(),
-          SideMenuItem(
-            isSelected: true,
-            title: 'Dashboard',
-            prefix: Icons.dashboard,
-            onTap: () {},
-          ),
-          SideMenuItem(
-            title: 'Tasks',
-            prefix: Icons.task_alt,
-            onTap: () {},
-          ),
-          SideMenuItem(
-            title: 'User Profile',
-            prefix: Icons.person,
-            onTap: () {},
-          ),
-          SideMenuItem(
-            title: 'Settings',
-            prefix: Icons.settings,
-            onTap: () {},
-          ),
-        ],
-      ),
-    );
+    return Consumer<HomeProvider>(builder: (ctx, homeProvider, child) {
+      return Container(
+        width: 250,
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+                // offset: Offset(0, 0),
+                // blurRadius: 20,
+                // color: Colors.black,
+                // spreadRadius: 60,
+                // blurStyle: BlurStyle.inner,
+                )
+          ],
+        ),
+        child: Column(
+          children: [
+            const SideMenuHeader(),
+            SideMenuItem(
+              isSelected: homeProvider.selectSideMenuItemIndex == 0,
+              title: 'Dashboard',
+              prefix: Icons.dashboard,
+              onTap: () {
+                homeProvider.updateActiveIndex(0);
+              },
+            ),
+            SideMenuItem(
+              isSelected: homeProvider.selectSideMenuItemIndex == 1,
+              title: 'Tasks',
+              prefix: Icons.task_alt,
+              onTap: () {
+                homeProvider.updateActiveIndex(1);
+              },
+            ),
+            SideMenuItem(
+              isSelected: homeProvider.selectSideMenuItemIndex == 2,
+              title: 'User Profile',
+              prefix: Icons.person,
+              onTap: () {
+                homeProvider.updateActiveIndex(2);
+              },
+            ),
+            SideMenuItem(
+              isSelected: homeProvider.selectSideMenuItemIndex == 3,
+              title: 'Settings',
+              prefix: Icons.settings,
+              onTap: () {
+                homeProvider.updateActiveIndex(3);
+              },
+            ),
+          ],
+        ),
+      );
+    });
   }
 }
 
@@ -141,10 +155,18 @@ class SideMenuItem extends StatelessWidget {
               children: [
                 if (prefix != null) ...[
                   const SizedBox(width: 12),
-                  Icon(prefix),
+                  Icon(
+                    prefix,
+                    color: isSelected ? Colors.white : Colors.black,
+                  ),
                   const SizedBox(width: 12),
                 ],
-                Text(title),
+                Text(
+                  title,
+                  style: TextStyle(
+                    color: isSelected ? Colors.white : Colors.black,
+                  ),
+                ),
               ],
             ),
           ),
@@ -161,36 +183,45 @@ class SideMenuHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: [
-        SizedBox(height: 5),
+        const SizedBox(height: 5),
         Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              CircleAvatar(radius: 30),
-              SizedBox(width: 10),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "User name",
-                    style: TextStyles.textMd,
-                    overflow: TextOverflow.ellipsis,
+          padding: const EdgeInsets.all(8.0),
+          child: Consumer<HomeProvider>(builder: (ctx, homeProvider, child) {
+            return Row(
+              children: [
+                CircleAvatar(
+                  radius: 30,
+                  foregroundImage: NetworkImage(
+                    homeProvider.userInfo?.userDetails?.profileURL ??
+                        'https://cdn.pixabay.com/photo/2013/07/13/10/44/man-157699_1280.png',
                   ),
-                  Text(
-                    "Email address",
-                    style: TextStyles.caption,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
-            ],
-          ),
+                ),
+                const SizedBox(width: 10),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      homeProvider.userInfo?.userDetails?.name ?? "User name",
+                      style: TextStyles.textMd,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      homeProvider.userInfo?.userDetails?.email ??
+                          "Email address",
+                      style: TextStyles.caption,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              ],
+            );
+          }),
         ),
-        Divider(),
-        SizedBox(height: 10),
+        const Divider(),
+        const SizedBox(height: 10),
       ],
     );
   }

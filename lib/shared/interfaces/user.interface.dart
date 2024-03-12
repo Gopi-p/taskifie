@@ -9,16 +9,27 @@ part 'user.interface.g.dart';
   includeIfNull: false,
 )
 class UserDetails {
+  final String userId;
+  final String name;
+  final String email;
+  final String? mobile;
+  final String? dob;
+  final String? gender;
+  final String? address;
+  final String? profileUrl;
   final UserSettings? settings;
-  final UserBasicDetail? userDetails;
-  final String? userId;
 
   UserDetails({
+    required this.userId,
+    required this.name,
+    required this.email,
+    this.mobile,
+    this.dob,
+    this.gender,
+    this.address,
+    this.profileUrl,
     this.settings,
-    this.userDetails,
-    this.userId,
   });
-
   factory UserDetails.fromJson(Map<String, dynamic> data) =>
       _$UserDetailsFromJson(data);
   Map<String, dynamic> toJson() => _$UserDetailsToJson(this);
@@ -30,43 +41,15 @@ class UserDetails {
   explicitToJson: true,
   includeIfNull: false,
 )
-class UserBasicDetail {
-  final String name;
-  final String email;
-  final String? dob;
-  final String? gender;
-  final String? mobile;
-  final String? address;
-  final String? profileURL;
-
-  UserBasicDetail({
-    required this.name,
-    required this.email,
-    this.dob,
-    this.gender,
-    this.mobile,
-    this.address,
-    this.profileURL,
-  });
-
-  factory UserBasicDetail.fromJson(Map<String, dynamic> data) =>
-      _$UserBasicDetailFromJson(data);
-  Map<String, dynamic> toJson() => _$UserBasicDetailToJson(this);
-}
-
-@JsonSerializable(
-  createFactory: true,
-  createToJson: true,
-  explicitToJson: true,
-  includeIfNull: false,
-)
 class UserSettings {
-  final AppThemeMode theme;
   final String language;
+  final AppThemeMode theme;
+  final bool promptOnDelete;
 
   UserSettings({
-    required this.theme,
-    required this.language,
+    this.language = 'en',
+    this.theme = AppThemeMode.system,
+    this.promptOnDelete = true,
   });
 
   factory UserSettings.fromJson(Map<String, dynamic> data) =>

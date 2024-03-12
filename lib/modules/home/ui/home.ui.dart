@@ -1,9 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:taskifie/modules/home/provider/home.provider.dart';
+import 'package:taskifie/shared/data/assets_paths.dart';
 import 'package:taskifie/shared/data/typography.data.dart';
-import 'package:taskifie/shared/functions/theme.function.dart';
 
 @RoutePage()
 class HomePage extends StatelessWidget {
@@ -14,12 +15,13 @@ class HomePage extends StatelessWidget {
     final HomeProvider homeProvider = context.read<HomeProvider>();
     return Scaffold(
       key: homeProvider.homeScaffoldKey,
-      drawer: !Responsive.isDesktop(context) ? const SideMenu() : null,
-      body: SafeArea(
+      // drawer: !Responsive.isDesktop(context) ? const SideMenu() : null,
+      body: const SafeArea(
         child: Row(
           children: [
-            if (Responsive.isDesktop(context)) const SideMenu(),
-            const Expanded(
+            // if (Responsive.isDesktop(context)) const SideMenu(),
+            SideMenu(),
+            Expanded(
               child: Column(
                 children: [
                   PageHeader(),
@@ -43,19 +45,19 @@ class PageHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final HomeProvider homeProvider = context.read<HomeProvider>();
+    context.read<HomeProvider>();
     return Container(
       color: Colors.blue,
       height: 70,
-      child: Row(
+      child: const Row(
         children: [
-          if (!Responsive.isDesktop(context))
-            IconButton(
-              onPressed: () {
-                homeProvider.homeScaffoldKey.currentState!.openDrawer();
-              },
-              icon: const Icon(Icons.menu),
-            ),
+          // if (!Responsive.isDesktop(context))
+          // IconButton(
+          //   onPressed: () {
+          //     homeProvider.homeScaffoldKey.currentState!.openDrawer();
+          //   },
+          //   icon: const Icon(Icons.menu),
+          // ),
         ],
       ),
     );
@@ -183,6 +185,22 @@ class SideMenuHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 18),
+      child: SvgPicture.asset(AssetsPath.fullLogoColor, height: 35),
+    );
+
+    // UserDetailsTile();
+  }
+}
+
+class UserDetailsTile extends StatelessWidget {
+  const UserDetailsTile({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
         const SizedBox(height: 5),
@@ -194,7 +212,7 @@ class SideMenuHeader extends StatelessWidget {
                 CircleAvatar(
                   radius: 30,
                   foregroundImage: NetworkImage(
-                    homeProvider.userInfo?.userDetails?.profileURL ??
+                    homeProvider.userInfo?.profileUrl ??
                         'https://cdn.pixabay.com/photo/2013/07/13/10/44/man-157699_1280.png',
                   ),
                 ),
@@ -204,13 +222,12 @@ class SideMenuHeader extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      homeProvider.userInfo?.userDetails?.name ?? "User name",
+                      homeProvider.userInfo?.name ?? "User name",
                       style: TextStyles.textMd,
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
-                      homeProvider.userInfo?.userDetails?.email ??
-                          "Email address",
+                      homeProvider.userInfo?.email ?? "Email address",
                       style: TextStyles.caption,
                       overflow: TextOverflow.ellipsis,
                     ),

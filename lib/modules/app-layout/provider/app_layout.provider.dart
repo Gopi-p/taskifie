@@ -9,7 +9,7 @@ class AppLayoutProvider extends ChangeNotifier {
 
   UserDetails? userInfo = AuthService.o.userDetails;
 
-  int selectSideMenuItemIndex = 0;
+  late int selectSideMenuItemIndex;
 
   updateActiveIndex(int index) {
     selectSideMenuItemIndex = index;

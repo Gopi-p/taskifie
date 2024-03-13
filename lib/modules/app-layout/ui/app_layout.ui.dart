@@ -74,6 +74,7 @@ class SideMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<AppLayoutProvider>(
       builder: (ctx, homeProvider, child) {
+        setActiveMenu(ctx, homeProvider);
         return Container(
           width: 250,
           decoration: const BoxDecoration(
@@ -107,6 +108,20 @@ class SideMenu extends StatelessWidget {
         );
       },
     );
+  }
+
+  void setActiveMenu(BuildContext ctx, AppLayoutProvider homeProvider) {
+    Map<String, int> urlToIndex = {
+      '/tasks': 0,
+      '/profile': 1,
+      '/settings': 2,
+    };
+
+    String currentUrl = ctx.router.currentUrl;
+
+    print('@@ ➡️ currentUrl - State: ${currentUrl.toString()}');
+
+    homeProvider.selectSideMenuItemIndex = urlToIndex[currentUrl] ?? 0;
   }
 }
 

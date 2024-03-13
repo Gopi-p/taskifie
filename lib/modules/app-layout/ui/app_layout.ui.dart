@@ -2,17 +2,18 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'package:taskifie/modules/home/provider/home.provider.dart';
+import 'package:taskifie/modules/app-layout/provider/app_layout.provider.dart';
 import 'package:taskifie/shared/data/assets_paths.dart';
 import 'package:taskifie/shared/data/typography.data.dart';
+import 'package:taskifie/shared/functions/helpers.function.dart';
 
 @RoutePage()
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class AppLayoutPage extends StatelessWidget {
+  const AppLayoutPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final HomeProvider homeProvider = context.read<HomeProvider>();
+    final AppLayoutProvider homeProvider = context.read<AppLayoutProvider>();
     return Scaffold(
       key: homeProvider.homeScaffoldKey,
       // drawer: !Responsive.isDesktop(context) ? const SideMenu() : null,
@@ -45,7 +46,7 @@ class PageHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<HomeProvider>();
+    context.read<AppLayoutProvider>();
     return Container(
       color: Colors.blue,
       height: 70,
@@ -71,60 +72,41 @@ class SideMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<HomeProvider>(builder: (ctx, homeProvider, child) {
-      return Container(
-        width: 250,
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-                // offset: Offset(0, 0),
-                // blurRadius: 20,
-                // color: Colors.black,
-                // spreadRadius: 60,
-                // blurStyle: BlurStyle.inner,
-                )
-          ],
-        ),
-        child: Column(
-          children: [
-            const SideMenuHeader(),
-            SideMenuItem(
-              isSelected: homeProvider.selectSideMenuItemIndex == 0,
-              title: 'Dashboard',
-              prefix: Icons.dashboard,
-              onTap: () {
-                homeProvider.updateActiveIndex(0);
-              },
-            ),
-            SideMenuItem(
-              isSelected: homeProvider.selectSideMenuItemIndex == 1,
-              title: 'Tasks',
-              prefix: Icons.task_alt,
-              onTap: () {
-                homeProvider.updateActiveIndex(1);
-              },
-            ),
-            SideMenuItem(
-              isSelected: homeProvider.selectSideMenuItemIndex == 2,
-              title: 'User Profile',
-              prefix: Icons.person,
-              onTap: () {
-                homeProvider.updateActiveIndex(2);
-              },
-            ),
-            SideMenuItem(
-              isSelected: homeProvider.selectSideMenuItemIndex == 3,
-              title: 'Settings',
-              prefix: Icons.settings,
-              onTap: () {
-                homeProvider.updateActiveIndex(3);
-              },
-            ),
-          ],
-        ),
-      );
-    });
+    return Consumer<AppLayoutProvider>(
+      builder: (ctx, homeProvider, child) {
+        return Container(
+          width: 250,
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                  // offset: Offset(0, 0),
+                  // blurRadius: 20,
+                  // color: Colors.black,
+                  // spreadRadius: 60,
+                  // blurStyle: BlurStyle.inner,
+                  )
+            ],
+          ),
+          child: Column(
+            children: [
+              const SideMenuHeader(),
+              ...menuItems.mapIndexed(
+                (e, i) => SideMenuItem(
+                  isSelected: homeProvider.selectSideMenuItemIndex == i,
+                  title: e.title,
+                  prefix: e.icon,
+                  onTap: () async {
+                    context.router.replace(e.route);
+                    homeProvider.updateActiveIndex(i);
+                  },
+                ),
+              )
+            ],
+          ),
+        );
+      },
+    );
   }
 }
 
@@ -206,7 +188,8 @@ class UserDetailsTile extends StatelessWidget {
         const SizedBox(height: 5),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Consumer<HomeProvider>(builder: (ctx, homeProvider, child) {
+          child:
+              Consumer<AppLayoutProvider>(builder: (ctx, homeProvider, child) {
             return Row(
               children: [
                 CircleAvatar(

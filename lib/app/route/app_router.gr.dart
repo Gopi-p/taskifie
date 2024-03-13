@@ -15,6 +15,12 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    AppLayoutRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const AppLayoutPage(),
+      );
+    },
     CreateTaskRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -25,12 +31,6 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const EditTaskPage(),
-      );
-    },
-    HomeRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const HomePage(),
       );
     },
     LoginRoute.name: (routeData) {
@@ -58,9 +58,25 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     TaskDetailsRoute.name: (routeData) {
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<TaskDetailsRouteArgs>(
+          orElse: () => TaskDetailsRouteArgs(
+                taskId: pathParams.getString('taskId'),
+                mode: pathParams.getString('mode'),
+              ));
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const TaskDetailsPage(),
+        child: TaskDetailsPage(
+          taskId: args.taskId,
+          mode: args.mode,
+          key: args.key,
+        ),
+      );
+    },
+    TasksListRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const TasksListPage(),
       );
     },
     UserProfileRoute.name: (routeData) {
@@ -70,6 +86,20 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
   };
+}
+
+/// generated route for
+/// [AppLayoutPage]
+class AppLayoutRoute extends PageRouteInfo<void> {
+  const AppLayoutRoute({List<PageRouteInfo>? children})
+      : super(
+          AppLayoutRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AppLayoutRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
@@ -96,20 +126,6 @@ class EditTaskRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'EditTaskRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [HomePage]
-class HomeRoute extends PageRouteInfo<void> {
-  const HomeRoute({List<PageRouteInfo>? children})
-      : super(
-          HomeRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'HomeRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
@@ -172,14 +188,61 @@ class SplashScreenRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [TaskDetailsPage]
-class TaskDetailsRoute extends PageRouteInfo<void> {
-  const TaskDetailsRoute({List<PageRouteInfo>? children})
-      : super(
+class TaskDetailsRoute extends PageRouteInfo<TaskDetailsRouteArgs> {
+  TaskDetailsRoute({
+    required String taskId,
+    required String mode,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
           TaskDetailsRoute.name,
+          args: TaskDetailsRouteArgs(
+            taskId: taskId,
+            mode: mode,
+            key: key,
+          ),
+          rawPathParams: {
+            'taskId': taskId,
+            'mode': mode,
+          },
           initialChildren: children,
         );
 
   static const String name = 'TaskDetailsRoute';
+
+  static const PageInfo<TaskDetailsRouteArgs> page =
+      PageInfo<TaskDetailsRouteArgs>(name);
+}
+
+class TaskDetailsRouteArgs {
+  const TaskDetailsRouteArgs({
+    required this.taskId,
+    required this.mode,
+    this.key,
+  });
+
+  final String taskId;
+
+  final String mode;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'TaskDetailsRouteArgs{taskId: $taskId, mode: $mode, key: $key}';
+  }
+}
+
+/// generated route for
+/// [TasksListPage]
+class TasksListRoute extends PageRouteInfo<void> {
+  const TasksListRoute({List<PageRouteInfo>? children})
+      : super(
+          TasksListRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'TasksListRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

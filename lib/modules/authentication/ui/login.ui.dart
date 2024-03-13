@@ -122,7 +122,7 @@ class LoginPage extends StatelessWidget {
                           //   );
 
                           //   // ignore: use_build_context_synchronously
-                          context.router.replaceAll([const HomeRoute()]);
+                          context.router.replaceAll([const AppLayoutRoute()]);
                           // }
                         },
                         contentAlignment: MainAxisAlignment.center,

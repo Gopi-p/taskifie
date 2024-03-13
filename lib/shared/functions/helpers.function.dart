@@ -73,3 +73,10 @@ extension NullCheck<T> on T {
   bool get isNotNull => this != null;
   bool get isNull => this == null;
 }
+
+extension IndexedIterable<E> on Iterable<E> {
+  Iterable<T> mapIndexed<T>(T Function(E e, int i) f) {
+    var i = 0;
+    return map((e) => f(e, i++));
+  }
+}

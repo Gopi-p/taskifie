@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:taskifie/app/taskifie.app.dart';
 import 'package:taskifie/modules/authentication/provider/login.provider.dart';
 import 'package:taskifie/modules/authentication/provider/signup.provider.dart';
-import 'package:taskifie/modules/home/provider/home.provider.dart';
+import 'package:taskifie/modules/app-layout/provider/app_layout.provider.dart';
 import 'package:taskifie/shared/services/startup.service.dart';
 
 Future<void> main() async {
@@ -20,7 +20,7 @@ class RootApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => LoginProvider()),
         ChangeNotifierProvider(create: (_) => SignupProvider()),
-        ChangeNotifierProvider(create: (_) => HomeProvider()),
+        ChangeNotifierProvider(create: (_) => AppLayoutProvider()),
       ],
       child: Taskifie(),
     );

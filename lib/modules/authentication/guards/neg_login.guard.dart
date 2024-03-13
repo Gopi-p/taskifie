@@ -8,7 +8,7 @@ class LoginRouteGuard extends AutoRouteGuard {
       NavigationResolver resolver, StackRouter router) async {
     if (FirebaseAuth.instance.currentUser != null) {
       resolver.next(false);
-      router.push(const HomeRoute());
+      router.push(const AppLayoutRoute());
     } else {
       resolver.next(true);
     }

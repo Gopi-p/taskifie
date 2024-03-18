@@ -5,12 +5,14 @@ import 'package:provider/provider.dart';
 import 'package:taskifie/app/route/app_router.dart';
 import 'package:taskifie/modules/authentication/provider/signup.provider.dart';
 import 'package:taskifie/shared/data/assets_paths.dart';
-import 'package:taskifie/shared/data/typography.data.dart';
+import 'package:taskifie/shared/data/theme.data.dart';
 import 'package:taskifie/shared/widgets/buttons.dart';
 
 @RoutePage()
 class SignUpPage extends StatelessWidget {
-  const SignUpPage({super.key});
+  const SignUpPage({super.key, this.onSignup});
+
+  final ValueChanged<bool>? onSignup;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,7 @@ class SignUpPage extends StatelessWidget {
                     const SizedBox(height: 32),
                     Text(
                       "Create an account",
-                      style: TextStyles.displayXs,
+                      style: AppTheme.displayXs,
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 32),
@@ -85,7 +87,12 @@ class SignUpPage extends StatelessWidget {
                     const SizedBox(height: 24),
                     PrimaryButton(
                       text: 'Register',
-                      onTap: () {},
+                      onTap: () async {
+                        await context.router.replaceAll(
+                          [const AppLayoutRoute()],
+                          updateExistingRoutes: false,
+                        );
+                      },
                       contentAlignment: MainAxisAlignment.center,
                     ),
                     const SizedBox(height: 32),
@@ -96,7 +103,7 @@ class SignUpPage extends StatelessWidget {
                         PrimaryButton(
                           text: "Login",
                           onTap: () {
-                            context.router.replace(const LoginRoute());
+                            context.router.replace(const AppLayoutRoute());
                           },
                           buttonType: ButtonType.link,
                         ),

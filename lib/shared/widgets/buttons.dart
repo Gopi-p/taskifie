@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:taskifie/shared/data/typography.data.dart';
+import 'package:flutter/services.dart';
+import 'package:taskifie/shared/data/theme.data.dart';
 
 enum ButtonType {
   link,
@@ -39,7 +40,7 @@ class PrimaryButton extends StatelessWidget {
         if (prefixIcon != null) const SizedBox(width: 12),
         Text(
           text,
-          style: TextStyles.textXs.copyWith(
+          style: AppTheme.textXs.copyWith(
             color: buttonType == ButtonType.link ? Colors.blue : Colors.white,
           ),
         ),
@@ -54,9 +55,28 @@ class PrimaryButton extends StatelessWidget {
           cursor: disabled
               ? SystemMouseCursors.forbidden
               : SystemMouseCursors.click,
-          child: GestureDetector(
-            onTap: disabled ? null : onTap,
-            child: mainChild,
+
+          /// [GestureDetector] will not have its own focus node, here [Focus] widget is used to
+          /// add this link button to the focus tree when user presses the `tab` key to move
+          /// focus from one widget to another.
+          child: Focus(
+            /// [Focus] widget is helping us to just gain the focus, any key action must be handled
+            /// separately using either [onKey] or [onKeyEvent]
+            onKey: (FocusNode node, RawKeyEvent event) {
+              if (event is RawKeyDownEvent &&
+                  event.logicalKey == LogicalKeyboardKey.enter) {
+                /// Calling the onTap of this button manually when the enter button is pressed
+                /// while this button is focused.
+                onTap.call();
+                return KeyEventResult.handled;
+              }
+              return KeyEventResult.ignored;
+            },
+
+            child: GestureDetector(
+              onTap: disabled ? null : onTap,
+              child: mainChild,
+            ),
           ),
         );
       } else {
@@ -113,7 +133,7 @@ class LinkButton extends StatelessWidget {
         onTap: () {},
         child: Text(
           "Forgot password?",
-          style: TextStyles.textXs.copyWith(color: Colors.blue),
+          style: AppTheme.textXs.copyWith(color: Colors.blue),
         ),
       ),
     );

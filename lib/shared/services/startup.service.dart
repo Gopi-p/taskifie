@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:taskifie/shared/configs/environments.dart';
 import 'package:taskifie/shared/services/auth.service.dart';
+import 'package:taskifie/shared/services/general.service.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 class StartUpService {
@@ -11,7 +12,18 @@ class StartUpService {
   /// This should be called earliest as possible to maintain the proper app lifecycle.
   initAppBeforeAuth() async {
     setPathUrlStrategy();
-    // await initializeFirebaseApp();
+    await initializeFirebaseApp();
+  }
+
+  /// Some of the app logics must be called after user login otherwise app state will break.
+  /// This function will be called after successful user login.
+  Future<void> initAppAfterAuth() async {
+    if (!_isAppInitializedAfterAuth) {
+      await GeneralService.o.configGraphQLClient();
+
+      /// Make [_isAppInitializedAfterAuth] true to avoid multiple function executions while navigating between the screens.
+      _isAppInitializedAfterAuth = true;
+    }
   }
 
   Future<void> initializeFirebaseApp() async {
@@ -30,15 +42,6 @@ class StartUpService {
     // }
 
     AuthService.o.userStateChanges();
-  }
-
-  /// Some of the app logics must be called after user login otherwise app state will break.
-  /// This function will be called after successful user login from guard.
-  Future<void> initAppAfterAuth() async {
-    if (!_isAppInitializedAfterAuth) {
-      /// Make [_isAppInitializedAfterAuth] true to avoid multiple function executions while navigating between the screens.
-      _isAppInitializedAfterAuth = true;
-    }
   }
 
   StartUpService._();

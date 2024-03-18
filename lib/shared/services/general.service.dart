@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:taskifie/shared/configs/environments.dart';
@@ -23,9 +24,8 @@ class GeneralService {
       final HttpLink httpLink = HttpLink(Env.graphQlEndPoint);
 
       final AuthLink authLink = AuthLink(
-        getToken: () async => 'Bearer ',
-        // getToken: () async =>
-        //     'Bearer ${await FirebaseAuth.instance.currentUser!.getIdToken()}',
+        getToken: () async =>
+            'Bearer ${await FirebaseAuth.instance.currentUser!.getIdToken()}',
       );
 
       final Link link = authLink.concat(httpLink);

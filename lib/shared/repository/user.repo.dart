@@ -13,6 +13,8 @@ Future<List<UserDetails>> getUserDetailsQuery({
     final QueryOptions options =
         fetchUserDetailsGQL(userIds: userIds, emails: emails);
 
+    print('@@ trying to fetch');
+
     final QueryResult result = await GeneralService.o.qlClient.query(options);
 
     if (result.hasException) {

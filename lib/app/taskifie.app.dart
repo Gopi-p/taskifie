@@ -12,8 +12,8 @@ class Taskifie extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: AppDetails.name,
-      theme: lightThemeData,
-      darkTheme: darkThemeData,
+      theme: AppTheme.lightThemeData,
+      darkTheme: AppTheme.darkThemeData,
       themeMode: ThemeMode.light,
       routerConfig: _appRouter.config(),
       debugShowCheckedModeBanner: false,

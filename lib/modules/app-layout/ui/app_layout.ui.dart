@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:taskifie/modules/app-layout/provider/app_layout.provider.dart';
 import 'package:taskifie/shared/data/assets_paths.dart';
-import 'package:taskifie/shared/data/typography.data.dart';
+import 'package:taskifie/shared/data/theme.data.dart';
 import 'package:taskifie/shared/functions/helpers.function.dart';
 
 @RoutePage()
@@ -118,9 +118,6 @@ class SideMenu extends StatelessWidget {
     };
 
     String currentUrl = ctx.router.currentUrl;
-
-    print('@@ ➡️ currentUrl - State: ${currentUrl.toString()}');
-
     homeProvider.selectSideMenuItemIndex = urlToIndex[currentUrl] ?? 0;
   }
 }
@@ -221,12 +218,12 @@ class UserDetailsTile extends StatelessWidget {
                   children: [
                     Text(
                       homeProvider.userInfo?.name ?? "User name",
-                      style: TextStyles.textMd,
+                      style: AppTheme.textMd,
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
                       homeProvider.userInfo?.email ?? "Email address",
-                      style: TextStyles.caption,
+                      style: AppTheme.caption,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],

@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:taskifie/app/splash_screen.dart';
+import 'package:taskifie/modules/authentication/guards/auth.guard.dart';
+import 'package:taskifie/modules/authentication/guards/login_route.guard.dart';
 import 'package:taskifie/modules/authentication/ui/login.ui.dart';
 import 'package:taskifie/modules/authentication/ui/signup.ui.dart';
 import 'package:taskifie/modules/app-layout/ui/app_layout.ui.dart';
@@ -22,24 +24,27 @@ class AppRouter extends _$AppRouter {
           path: '/',
           initial: true,
           children: [
-            // AutoRoute(
-            //   page: LoginRoute.page,
-            //   path: 'login',
-            //   // guards: [LoginRouteGuard()],
-            // ),
-            // AutoRoute(
-            //   page: SignUpRoute.page,
-            //   path: 'signup',
-            //   // guards: [LoginRouteGuard()],
-            // ),
+            AutoRoute(
+              page: LoginRoute.page,
+              path: 'login',
+              guards: [LoginRouteGuard()],
+            ),
+            AutoRoute(
+              page: SignUpRoute.page,
+              path: 'signup',
+              guards: [LoginRouteGuard()],
+            ),
             AutoRoute(
               page: AppLayoutRoute.page,
               path: '',
               initial: true,
-              // guards: [AuthGuard()],
+              guards: [AuthGuard()],
               children: [
                 AutoRoute(
-                    page: TasksListRoute.page, path: 'tasks', initial: true),
+                  page: TasksListRoute.page,
+                  path: 'tasks',
+                  initial: true,
+                ),
                 AutoRoute(page: TaskDetailsRoute.page, path: ':taskId/:mode'),
                 AutoRoute(page: UserProfileRoute.page, path: 'profile'),
                 AutoRoute(page: SettingsRoute.page, path: 'settings'),
@@ -47,5 +52,6 @@ class AppRouter extends _$AppRouter {
             ),
           ],
         ),
+        RedirectRoute(path: '*', redirectTo: '/')
       ];
 }

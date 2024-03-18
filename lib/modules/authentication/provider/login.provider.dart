@@ -5,6 +5,7 @@ class LoginProvider extends ChangeNotifier {
   final loginFormKey = GlobalKey<FormState>();
   bool isLoginButtonLoading = false;
   bool isPasswordVisible = false;
+  bool isRememberMe = true;
 
   String email = '';
   String password = '';
@@ -15,6 +16,12 @@ class LoginProvider extends ChangeNotifier {
       return await loginWithEmailAndPassword(email: email, password: password);
     }
     return false;
+  }
+
+  toggleRememberMe() async {
+    isRememberMe = !isRememberMe;
+    await setUserAuthPersistence(isRememberMe);
+    notifyListeners();
   }
 
   togglePasswordEyeIcon() {

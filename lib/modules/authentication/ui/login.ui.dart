@@ -5,12 +5,15 @@ import 'package:provider/provider.dart';
 import 'package:taskifie/app/route/app_router.dart';
 import 'package:taskifie/modules/authentication/provider/login.provider.dart';
 import 'package:taskifie/shared/data/assets_paths.dart';
-import 'package:taskifie/shared/data/typography.data.dart';
+import 'package:taskifie/shared/data/theme.data.dart';
 import 'package:taskifie/shared/widgets/buttons.dart';
+import 'package:taskifie/shared/widgets/snackbar.dart';
 
 @RoutePage()
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  const LoginPage({super.key, this.onLogin});
+
+  final ValueChanged<bool>? onLogin;
 
   @override
   Widget build(BuildContext context) {
@@ -40,14 +43,14 @@ class LoginPage extends StatelessWidget {
                     const SizedBox(height: 32),
                     Text(
                       "Log in to your account",
-                      style: TextStyles.displayXs,
+                      style: AppTheme.displayXs,
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 4),
                     const Text(
                       "Welcome back! Please enter your details.",
                       textAlign: TextAlign.center,
-                      style: TextStyles.textXs,
+                      style: AppTheme.textXs,
                     ),
                     const SizedBox(height: 32),
                     TextFormField(
@@ -56,6 +59,7 @@ class LoginPage extends StatelessWidget {
                         label: Text("Email"),
                         prefixIcon: Icon(Icons.email),
                       ),
+                      initialValue: 'gopi@gmail.com',
                       onSaved: (value) {
                         loginProvider.email = value!;
                       },
@@ -85,6 +89,7 @@ class LoginPage extends StatelessWidget {
                             },
                           ),
                         ),
+                        initialValue: 'Gopi@123',
                         obscureText: !loginProvider.isPasswordVisible,
                         onSaved: (value) {
                           loginProvider.password = value!;
@@ -98,11 +103,38 @@ class LoginPage extends StatelessWidget {
                       );
                     }),
                     const SizedBox(height: 24),
-                    PrimaryButton(
-                      contentAlignment: MainAxisAlignment.end,
-                      onTap: () {},
-                      text: "Forgot password?",
-                      buttonType: ButtonType.link,
+                    Row(
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Consumer<LoginProvider>(
+                          builder: (ctx, loginProvider, child) {
+                            return Checkbox(
+                              value: loginProvider.isRememberMe,
+                              onChanged: (val) {
+                                loginProvider.toggleRememberMe();
+                              },
+                              activeColor: AppTheme.primaryColor,
+                              side: const BorderSide(
+                                width: 1.1,
+                              ),
+                            );
+                          },
+                        ),
+                        // const SizedBox(width: ),
+                        PrimaryButton(
+                          onTap: () {
+                            loginProvider.toggleRememberMe();
+                          },
+                          text: "Stay logged in",
+                          buttonType: ButtonType.link,
+                        ),
+                        const Spacer(),
+                        PrimaryButton(
+                          onTap: () {},
+                          text: "Forgot password?",
+                          buttonType: ButtonType.link,
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 24),
                     Consumer<LoginProvider>(
@@ -110,20 +142,27 @@ class LoginPage extends StatelessWidget {
                       return PrimaryButton(
                         text: 'Login',
                         onTap: () async {
-                          // loginProvider.toggleLoginButtonLoading();
-                          // bool isLogInSuccessful =
-                          //     await loginProvider.submitLoginForm();
-                          // loginProvider.toggleLoginButtonLoading();
-                          // if (isLogInSuccessful) {
-                          //   // ignore: use_build_context_synchronously
-                          //   showSnackBar(
-                          //     msg: 'Login successful',
-                          //     type: ToastType.success,
-                          //   );
+                          loginProvider.toggleLoginButtonLoading();
+                          bool isLogInSuccessful =
+                              await loginProvider.submitLoginForm();
+                          loginProvider.toggleLoginButtonLoading();
+                          if (isLogInSuccessful) {
+                            // ignore: use_build_context_synchronously
+                            showSnackBar(
+                              msg: 'Login successful',
+                              type: ToastType.success,
+                            );
 
-                          //   // ignore: use_build_context_synchronously
-                          context.router.replaceAll([const AppLayoutRoute()]);
-                          // }
+                            if (onLogin != null) {
+                              onLogin!.call(isLogInSuccessful);
+                            } else {
+                              // ignore: use_build_context_synchronously
+                              await context.router.replaceAll(
+                                [const AppLayoutRoute()],
+                                updateExistingRoutes: false,
+                              );
+                            }
+                          }
                         },
                         contentAlignment: MainAxisAlignment.center,
                         loading: loginProvider.isLoginButtonLoading,
@@ -137,7 +176,7 @@ class LoginPage extends StatelessWidget {
                         PrimaryButton(
                           text: "Sign up",
                           onTap: () {
-                            context.router.replace(const SignUpRoute());
+                            context.router.replace(SignUpRoute());
                           },
                           buttonType: ButtonType.link,
                         ),

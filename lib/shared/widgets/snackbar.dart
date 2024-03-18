@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:taskifie/shared/data/typography.data.dart';
+import 'package:taskifie/shared/data/theme.data.dart';
 import 'package:taskifie/shared/services/general.service.dart';
 
 void showSnackBar({
@@ -33,7 +33,7 @@ void showSnackBar({
     behavior: SnackBarBehavior.floating,
     content: Text(
       msg,
-      style: TextStyles.textSm.copyWith(color: textColor),
+      style: AppTheme.textSm.copyWith(color: textColor),
     ),
   );
 

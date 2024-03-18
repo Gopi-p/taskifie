@@ -14,18 +14,24 @@ Future<bool> loginWithEmailAndPassword({
         .signInWithEmailAndPassword(email: email, password: password);
 
     return true;
-  } on FirebaseAuthException catch (e) {
-    if (e.code == 'user-not-found') {
+  } on FirebaseException catch (e) {
+    if (e.message?.contains('user-not-found') ?? false) {
       showSnackBar(
         msg: 'Account doesn\'t exists. Try Signup',
         type: ToastType.info,
       );
       print('No user found for that email.');
-    } else if (e.code == 'wrong-password') {
+    } else if (e.message?.contains('wrong-password') ?? false) {
       showSnackBar(msg: 'Invalid credentials', type: ToastType.error);
     }
     return false;
   }
+}
+
+Future<void> setUserAuthPersistence(bool isRememberMe) async {
+  await FirebaseAuth.instance.setPersistence(
+    isRememberMe ? Persistence.INDEXED_DB : Persistence.SESSION,
+  );
 }
 
 Future<bool> signupWithEmailAndPassword({
@@ -117,7 +123,7 @@ Future<void> logoutUser({
     if (navigateToLogin) {
       if (ctx != null) {
         // ignore: use_build_context_synchronously
-        ctx.router.replaceAll([const LoginRoute()]);
+        ctx.router.replaceAll([const AppLayoutRoute()]);
       }
     }
   } on FirebaseAuthException catch (e) {

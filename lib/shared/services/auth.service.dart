@@ -2,20 +2,19 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:taskifie/modules/authentication/repository/auth.repo.dart';
 import 'package:taskifie/shared/interfaces/user.interface.dart';
 import 'package:taskifie/shared/repository/user.repo.dart';
+import 'package:taskifie/shared/services/startup.service.dart';
 
 class AuthService {
   Map<String, dynamic>? userAuthClaims;
   UserDetails? userDetails;
 
   void userStateChanges() {
-    FirebaseAuth.instance.userChanges().listen((User? user) async {
+    FirebaseAuth.instance.authStateChanges().listen((User? user) async {
       if (user != null) {
         try {
-          userAuthClaims = (await user.getIdTokenResult()).claims;
-
-          await AuthService.o.fetchUserAndOrgDetails(
-            userId: userAuthClaims!['userId'], //TODO
-          );
+          await StartUpService.o.initAppAfterAuth();
+          print(user.uid);
+          // await AuthService.o.fetchUserDetails(userId: user.uid);
         } catch (e) {
           await logoutUser(silent: true);
         }
@@ -23,7 +22,7 @@ class AuthService {
     });
   }
 
-  Future fetchUserAndOrgDetails({required String userId}) async {
+  Future fetchUserDetails({required String userId}) async {
     userDetails = (await getUserDetailsQuery(userIds: [userId]))[0];
   }
 

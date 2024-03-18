@@ -34,9 +34,14 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     LoginRoute.name: (routeData) {
+      final args = routeData.argsAs<LoginRouteArgs>(
+          orElse: () => const LoginRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const LoginPage(),
+        child: LoginPage(
+          key: args.key,
+          onLogin: args.onLogin,
+        ),
       );
     },
     SettingsRoute.name: (routeData) {
@@ -46,9 +51,14 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     SignUpRoute.name: (routeData) {
+      final args = routeData.argsAs<SignUpRouteArgs>(
+          orElse: () => const SignUpRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const SignUpPage(),
+        child: SignUpPage(
+          key: args.key,
+          onSignup: args.onSignup,
+        ),
       );
     },
     SplashScreenRoute.name: (routeData) {
@@ -132,16 +142,39 @@ class EditTaskRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [LoginPage]
-class LoginRoute extends PageRouteInfo<void> {
-  const LoginRoute({List<PageRouteInfo>? children})
-      : super(
+class LoginRoute extends PageRouteInfo<LoginRouteArgs> {
+  LoginRoute({
+    Key? key,
+    void Function(bool)? onLogin,
+    List<PageRouteInfo>? children,
+  }) : super(
           LoginRoute.name,
+          args: LoginRouteArgs(
+            key: key,
+            onLogin: onLogin,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'LoginRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<LoginRouteArgs> page = PageInfo<LoginRouteArgs>(name);
+}
+
+class LoginRouteArgs {
+  const LoginRouteArgs({
+    this.key,
+    this.onLogin,
+  });
+
+  final Key? key;
+
+  final void Function(bool)? onLogin;
+
+  @override
+  String toString() {
+    return 'LoginRouteArgs{key: $key, onLogin: $onLogin}';
+  }
 }
 
 /// generated route for
@@ -160,16 +193,39 @@ class SettingsRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [SignUpPage]
-class SignUpRoute extends PageRouteInfo<void> {
-  const SignUpRoute({List<PageRouteInfo>? children})
-      : super(
+class SignUpRoute extends PageRouteInfo<SignUpRouteArgs> {
+  SignUpRoute({
+    Key? key,
+    void Function(bool)? onSignup,
+    List<PageRouteInfo>? children,
+  }) : super(
           SignUpRoute.name,
+          args: SignUpRouteArgs(
+            key: key,
+            onSignup: onSignup,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'SignUpRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<SignUpRouteArgs> page = PageInfo<SignUpRouteArgs>(name);
+}
+
+class SignUpRouteArgs {
+  const SignUpRouteArgs({
+    this.key,
+    this.onSignup,
+  });
+
+  final Key? key;
+
+  final void Function(bool)? onSignup;
+
+  @override
+  String toString() {
+    return 'SignUpRouteArgs{key: $key, onSignup: $onSignup}';
+  }
 }
 
 /// generated route for

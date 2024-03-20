@@ -113,7 +113,7 @@ class LoginPage extends StatelessWidget {
                               onChanged: (val) {
                                 loginProvider.toggleRememberMe();
                               },
-                              activeColor: AppTheme.primaryColor,
+                              // activeColor: AppTheme.primaryColor,
                               side: const BorderSide(
                                 width: 1.1,
                               ),

@@ -13,7 +13,6 @@ class AuthService {
       if (user != null) {
         try {
           await StartUpService.o.initAppAfterAuth();
-          print(user.uid);
           // await AuthService.o.fetchUserDetails(userId: user.uid);
         } catch (e) {
           await logoutUser(silent: true);

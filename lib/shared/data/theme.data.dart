@@ -10,13 +10,9 @@ class AppTheme {
 
   static final darkThemeData = ThemeData(fontFamily: 'Poppins');
 
-  static const primaryColor = Colors.blue;
-  static const successColor = Colors.green;
-  static const warningColor = Colors.orange;
-  static const infoColor = Colors.grey;
-  static const errorColor = Colors.red;
-  static const textColor = Colors.black;
-  static const bgColor = Colors.white;
+  static const primaryGradient =
+      LinearGradient(colors: [AppColors.primaryGradientColor1]);
+  static const secondaryGradient = Colors.blue;
 
   static const textScaleFactorBig = 1.1320;
 
@@ -96,3 +92,16 @@ class AppTheme {
     color: Color(0xFF1F1F1F),
   );
 }
+
+class AppColors {
+  static const primaryColor = Colors.blue;
+  static const successColor = Colors.green;
+  static const warningColor = Colors.orange;
+  static const infoColor = Colors.grey;
+  static const errorColor = Colors.red;
+  static const textColor = Colors.black;
+  static const bgColor = Colors.white;
+  static const primaryGradientColor1 = Colors.white;
+}
+
+class AppTextStyle {}

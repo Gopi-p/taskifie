@@ -27,6 +27,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const CreateTaskPage(),
       );
     },
+    CustomBuildRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const CustomBuildPage(),
+      );
+    },
     EditTaskRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -122,6 +128,20 @@ class CreateTaskRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'CreateTaskRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [CustomBuildPage]
+class CustomBuildRoute extends PageRouteInfo<void> {
+  const CustomBuildRoute({List<PageRouteInfo>? children})
+      : super(
+          CustomBuildRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CustomBuildRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

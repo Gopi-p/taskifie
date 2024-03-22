@@ -33,7 +33,7 @@ void showSnackBar({
     behavior: SnackBarBehavior.floating,
     content: Text(
       msg,
-      style: AppTheme.textSm.copyWith(color: textColor),
+      style: AppTextStyle.caption2.copyWith(color: textColor),
     ),
   );
 

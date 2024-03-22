@@ -28,11 +28,11 @@ class AppRouter extends _$AppRouter {
             AutoRoute(
               page: CustomBuildRoute.page,
               path: 'custom',
-              initial: true,
             ),
             AutoRoute(
               page: LoginRoute.page,
               path: 'login',
+              initial: true,
               // guards: [LoginRouteGuard()],
             ),
             AutoRoute(

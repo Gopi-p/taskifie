@@ -40,8 +40,10 @@ class PrimaryButton extends StatelessWidget {
         if (prefixIcon != null) const SizedBox(width: 12),
         Text(
           text,
-          style: AppTheme.textXs.copyWith(
-            color: buttonType == ButtonType.link ? Colors.blue : Colors.white,
+          style: AppTextStyle.caption1.copyWith(
+            color: buttonType == ButtonType.link
+                ? AppColors.linkBlue
+                : AppColors.white,
           ),
         ),
         if (suffixIcon != null) const SizedBox(width: 12),
@@ -120,22 +122,22 @@ class PrimaryButton extends StatelessWidget {
   }
 }
 
-class LinkButton extends StatelessWidget {
-  const LinkButton({
-    super.key,
-  });
+// class LinkButton extends StatelessWidget {
+//   const LinkButton({
+//     super.key,
+//   });
 
-  @override
-  Widget build(BuildContext context) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        onTap: () {},
-        child: Text(
-          "Forgot password?",
-          style: AppTheme.textXs.copyWith(color: Colors.blue),
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return MouseRegion(
+//       cursor: SystemMouseCursors.click,
+//       child: GestureDetector(
+//         onTap: () {},
+//         child: Text(
+//           "Forgot password?",
+//           style: AppTextStyle.caption1.copyWith(color: AppColors.linkBlue),
+//         ),
+//       ),
+//     );
+//   }
+// }

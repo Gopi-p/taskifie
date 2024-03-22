@@ -42,7 +42,7 @@ class SignUpPage extends StatelessWidget {
                     const SizedBox(height: 32),
                     Text(
                       "Create an account",
-                      style: AppTheme.displayXs,
+                      style: AppTextStyle.subHeading1,
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 32),

@@ -218,12 +218,12 @@ class UserDetailsTile extends StatelessWidget {
                   children: [
                     Text(
                       homeProvider.userInfo?.name ?? "User name",
-                      style: AppTheme.textMd,
+                      style: AppTextStyle.body2,
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
                       homeProvider.userInfo?.email ?? "Email address",
-                      style: AppTheme.caption,
+                      style: AppTextStyle.body3,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],

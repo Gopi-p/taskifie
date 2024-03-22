@@ -5,6 +5,7 @@ class SignupProvider extends ChangeNotifier {
   final signupFormKey = GlobalKey<FormState>();
   bool isSignupButtonLoading = false;
   bool isPasswordVisible = false;
+  bool isUserAgreedToTaC = false;
 
   String email = '';
   String password = '';
@@ -24,6 +25,11 @@ class SignupProvider extends ChangeNotifier {
 
   toggleSignupButtonLoading() {
     isSignupButtonLoading = !isSignupButtonLoading;
+    notifyListeners();
+  }
+
+  toggleUserAgreementToTaC() {
+    isUserAgreedToTaC = !isUserAgreedToTaC;
     notifyListeners();
   }
 }

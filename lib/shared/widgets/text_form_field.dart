@@ -46,7 +46,7 @@ class CustomTextFormField extends StatelessWidget {
           decoration: InputDecoration(
             hintText: hintText,
             suffixIcon: suffixIcon,
-            constraints: const BoxConstraints(maxWidth: 372),
+            constraints: const BoxConstraints(maxWidth: 400),
           ),
           style: AppTextStyle.body2,
           cursorColor: AppColors.linkBlue,

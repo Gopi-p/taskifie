@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:taskifie/app/splash_screen.dart';
-import 'package:taskifie/components/custom.dart';
+import 'package:taskifie/app/custom.dart';
 import 'package:taskifie/modules/authentication/guards/auth.guard.dart';
 import 'package:taskifie/modules/authentication/guards/login_route.guard.dart';
 import 'package:taskifie/modules/authentication/ui/login.ui.dart';
@@ -32,12 +32,12 @@ class AppRouter extends _$AppRouter {
             AutoRoute(
               page: LoginRoute.page,
               path: 'login',
+              initial: true,
               // guards: [LoginRouteGuard()],
             ),
             AutoRoute(
               page: SignUpRoute.page,
               path: 'signup',
-              initial: true,
               // guards: [LoginRouteGuard()],
             ),
             AutoRoute(

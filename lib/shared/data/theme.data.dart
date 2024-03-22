@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class AppTheme {
   static final lightThemeData = ThemeData(
     fontFamily: 'Poppins',
+    primaryTextTheme: const TextTheme(),
     colorScheme: ColorScheme.fromSeed(
       seedColor: Colors.blue,
     ),
@@ -58,15 +59,17 @@ class AppTheme {
       filled: true,
       fillColor: AppColors.primaryBlue,
     ),
-    // iconTheme: const IconThemeData(color: AppColors.warning),
-    // iconButtonTheme: IconButtonThemeData(
-    //   style: ButtonStyle(iconColor: MaterialStateColor.resolveWith((states) {
-    //     if (states.contains(MaterialState.hovered)) {
-    //       return AppColors.white;
-    //     }
-    //     return AppColors.text;
-    //   })),
-    // ),
+    checkboxTheme: CheckboxThemeData(
+      side: const BorderSide(width: 1.1, color: AppColors.text),
+      fillColor: MaterialStateProperty.resolveWith(
+        (states) {
+          if (states.contains(MaterialState.selected)) {
+            return AppColors.linkBlue;
+          }
+          return null;
+        },
+      ),
+    ),
   );
 
   static final darkThemeData = ThemeData(fontFamily: 'Poppins');
@@ -138,21 +141,25 @@ class AppTextStyle {
     fontSize: 16,
     fontWeight: FontWeight.w400,
     color: AppColors.text,
+    fontFamily: 'Poppins',
   );
   static TextStyle body3 = const TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w400,
     color: AppColors.text,
+    fontFamily: 'Poppins',
   );
   static TextStyle caption1 = const TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w500,
     color: AppColors.text,
+    fontFamily: 'Poppins',
   );
   static TextStyle caption2 = const TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w500,
     color: AppColors.text,
+    fontFamily: 'Poppins',
   );
   static TextStyle lead = const TextStyle(
     fontSize: 10,

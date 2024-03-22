@@ -20,7 +20,7 @@ class LoginProvider extends ChangeNotifier {
 
   toggleRememberMe() async {
     isRememberMe = !isRememberMe;
-    await setUserAuthPersistence(isRememberMe);
+    // await setUserAuthPersistence(isRememberMe);
     notifyListeners();
   }
 

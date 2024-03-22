@@ -35,8 +35,9 @@ class PrimaryButton extends StatelessWidget {
     Widget finalChild;
     Widget mainChild = Row(
       mainAxisAlignment: contentAlignment,
+      // mainAxisSize: MainAxisSize.min,
       children: [
-        if (prefixIcon != null) Icon(prefixIcon, color: Colors.white),
+        if (prefixIcon != null) Icon(prefixIcon, color: AppColors.white),
         if (prefixIcon != null) const SizedBox(width: 12),
         Text(
           text,
@@ -47,7 +48,7 @@ class PrimaryButton extends StatelessWidget {
           ),
         ),
         if (suffixIcon != null) const SizedBox(width: 12),
-        if (suffixIcon != null) Icon(suffixIcon, color: Colors.white),
+        if (suffixIcon != null) Icon(suffixIcon, color: AppColors.white),
       ],
     );
 
@@ -84,7 +85,7 @@ class PrimaryButton extends StatelessWidget {
       } else {
         finalChild = Material(
           borderRadius: BorderRadius.circular(12),
-          color: Colors.blue,
+          color: AppColors.linkBlue,
           child: InkWell(
             onTap: disabled ? null : onTap,
             mouseCursor: disabled
@@ -93,7 +94,7 @@ class PrimaryButton extends StatelessWidget {
             splashFactory: InkSparkle.constantTurbulenceSeedSplashFactory,
             borderRadius: BorderRadius.circular(12),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               child: mainChild,
             ),
           ),
@@ -108,7 +109,7 @@ class PrimaryButton extends StatelessWidget {
           child: CircularProgressIndicator(
             strokeWidth: 4,
             valueColor: AlwaysStoppedAnimation(
-              Colors.blue,
+              AppColors.linkBlue,
             ),
           ),
         ),

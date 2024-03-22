@@ -43,8 +43,11 @@ class CustomTextFormField extends StatelessWidget {
         Text(label, style: AppTextStyle.caption1),
         const SizedBox(height: 8),
         TextFormField(
-          decoration:
-              InputDecoration(hintText: hintText, suffixIcon: suffixIcon),
+          decoration: InputDecoration(
+            hintText: hintText,
+            suffixIcon: suffixIcon,
+            constraints: const BoxConstraints(maxWidth: 372),
+          ),
           style: AppTextStyle.body2,
           cursorColor: AppColors.linkBlue,
           enabled: enabled,

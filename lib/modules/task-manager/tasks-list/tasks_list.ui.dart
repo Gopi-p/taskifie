@@ -17,7 +17,7 @@ class TasksListPage extends StatelessWidget {
             context.router
                 .push(TaskDetailsRoute(taskId: index.toString(), mode: 'edit'));
           },
-          trailing: const Icon(Icons.arrow_right),
+          // trailing: const Icon(Icons.arrow_right),
         );
       },
     );

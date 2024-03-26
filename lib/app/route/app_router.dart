@@ -32,7 +32,6 @@ class AppRouter extends _$AppRouter {
             AutoRoute(
               page: LoginRoute.page,
               path: 'login',
-              initial: true,
               // guards: [LoginRouteGuard()],
             ),
             AutoRoute(
@@ -43,6 +42,7 @@ class AppRouter extends _$AppRouter {
             AutoRoute(
               page: AppLayoutRoute.page,
               path: 'home',
+              initial: true,
               // initial: true,
               // guards: [AuthGuard()],
               children: [

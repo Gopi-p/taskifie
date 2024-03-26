@@ -109,6 +109,7 @@ class AppColors {
   static const warning = Colors.orange;
   static const info = Colors.grey;
   static const error = Colors.red;
+  static const transparent = Colors.transparent;
 }
 
 class AppTextStyle {

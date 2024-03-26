@@ -27,6 +27,7 @@ class GradientScaffold extends StatelessWidget {
   final Widget? floatingActionButton;
   final FloatingActionButtonLocation? floatingActionButtonLocation;
   final Widget? bottomNavigationBar;
+  final Key? scaffoldKey;
 
   final Gradient? gradient;
 
@@ -57,6 +58,7 @@ class GradientScaffold extends StatelessWidget {
     this.floatingActionButtonLocation,
     this.bottomNavigationBar,
     this.gradient = AppTheme.primaryGradient,
+    this.scaffoldKey,
   });
 
   @override
@@ -81,7 +83,7 @@ class GradientScaffold extends StatelessWidget {
       extendBody: extendBody,
       extendBodyBehindAppBar: extendBodyBehindAppBar,
       floatingActionButtonAnimator: floatingActionButtonAnimator,
-      key: key,
+      key: scaffoldKey,
       onDrawerChanged: onDrawerChanged,
       onEndDrawerChanged: onEndDrawerChanged,
       persistentFooterAlignment: persistentFooterAlignment,

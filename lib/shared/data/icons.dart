@@ -1,0 +1,45 @@
+class AppIcons {
+  static const String alertCircle = 'assets/images/icons/alert_circle.svg';
+  static const String arrowRightCircle =
+      'assets/images/icons/arrow_right_circle.svg';
+  static const String award = 'assets/images/icons/award.svg';
+  static const String bellOff = 'assets/images/icons/bell_off.svg';
+  static const String bell = 'assets/images/icons/bell.svg';
+  static const String calendar = 'assets/images/icons/calendar.svg';
+  static const String checkCircle = 'assets/images/icons/check_circle.svg';
+  static const String checkSquare = 'assets/images/icons/check_square.svg';
+  static const String check = 'assets/images/icons/check.svg';
+  static const String chevronDown = 'assets/images/icons/chevron_down.svg';
+  static const String chevronUp = 'assets/images/icons/chevron_up.svg';
+  static const String circle = 'assets/images/icons/circle.svg';
+  static const String clipboard = 'assets/images/icons/clipboard.svg';
+  static const String clock = 'assets/images/icons/clock.svg';
+  static const String clock1 = 'assets/images/icons/clock_1.svg';
+  static const String cloud = 'assets/images/icons/cloud.svg';
+  static const String download = 'assets/images/icons/download.svg';
+  static const String eye = 'assets/images/icons/eye.svg';
+  static const String eyeOff = 'assets/images/icons/eye_off.svg';
+  static const String fileText = 'assets/images/icons/file_text.svg';
+  static const String folder = 'assets/images/icons/folder.svg';
+  static const String layout = 'assets/images/icons/layout.svg';
+  static const String list = 'assets/images/icons/link.svg';
+  static const String loader = 'assets/images/icons/loader.svg';
+  static const String logOut = 'assets/images/icons/log_out.svg';
+  static const String menu = 'assets/images/icons/menu.svg';
+  static const String minusCircle = 'assets/images/icons/minus_circle.svg';
+  static const String moreVertical = 'assets/images/icons/more_vertical.svg';
+  static const String navigation2 = 'assets/images/icons/navigation_2.svg';
+  static const String paperclip = 'assets/images/icons/paperclip.svg';
+  static const String plusCircle = 'assets/images/icons/plus_circle.svg';
+  static const String plus = 'assets/images/icons/plus.svg';
+  static const String search = 'assets/images/icons/search.svg';
+  static const String send = 'assets/images/icons/send.svg';
+  static const String settings = 'assets/images/icons/settings.svg';
+  static const String star = 'assets/images/icons/star.svg';
+  static const String target = 'assets/images/icons/target.svg';
+  static const String trash = 'assets/images/icons/trash.svg';
+  static const String trash2 = 'assets/images/icons/trash_2.svg';
+  static const String user = 'assets/images/icons/user.svg';
+  static const String xCircle = 'assets/images/icons/x_circle.svg';
+  static const String x = 'assets/images/icons/x.svg';
+}

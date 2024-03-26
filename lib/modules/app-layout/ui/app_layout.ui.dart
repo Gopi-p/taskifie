@@ -6,6 +6,8 @@ import 'package:taskifie/modules/app-layout/provider/app_layout.provider.dart';
 import 'package:taskifie/shared/data/assets_paths.dart';
 import 'package:taskifie/shared/data/theme.data.dart';
 import 'package:taskifie/shared/functions/helpers.function.dart';
+import 'package:taskifie/shared/functions/theme.function.dart';
+import 'package:taskifie/shared/widgets/gradient_scaffold.dart';
 
 @RoutePage()
 class AppLayoutPage extends StatelessWidget {
@@ -14,15 +16,14 @@ class AppLayoutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AppLayoutProvider homeProvider = context.read<AppLayoutProvider>();
-    return Scaffold(
-      key: homeProvider.homeScaffoldKey,
-      // drawer: !Responsive.isDesktop(context) ? const SideMenu() : null,
-      body: const SafeArea(
+    return GradientScaffold(
+      scaffoldKey: homeProvider.homeScaffoldKey,
+      drawer: !Responsive.isDesktop(context) ? const SideMenu() : null,
+      body: SafeArea(
         child: Row(
           children: [
-            // if (Responsive.isDesktop(context)) const SideMenu(),
-            SideMenu(),
-            Expanded(
+            if (Responsive.isDesktop(context)) const SideMenu(),
+            const Expanded(
               child: Column(
                 children: [
                   PageHeader(),
@@ -46,19 +47,20 @@ class PageHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<AppLayoutProvider>();
-    return Container(
-      color: Colors.blue,
+    final homeProvider = context.read<AppLayoutProvider>();
+    return SizedBox(
       height: 70,
-      child: const Row(
+      child: Row(
         children: [
-          // if (!Responsive.isDesktop(context))
-          // IconButton(
-          //   onPressed: () {
-          //     homeProvider.homeScaffoldKey.currentState!.openDrawer();
-          //   },
-          //   icon: const Icon(Icons.menu),
-          // ),
+          const SizedBox(width: 14),
+          if (!Responsive.isDesktop(context))
+            IconButton(
+              onPressed: () {
+                homeProvider.homeScaffoldKey.currentState!.openDrawer();
+              },
+              icon: const Icon(Icons.menu),
+              color: AppColors.text,
+            ),
         ],
       ),
     );
@@ -76,22 +78,33 @@ class SideMenu extends StatelessWidget {
       builder: (ctx, homeProvider, child) {
         setActiveMenu(ctx, homeProvider);
         return Container(
-          width: 250,
           decoration: const BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                  // offset: Offset(0, 0),
-                  // blurRadius: 20,
-                  // color: Colors.black,
-                  // spreadRadius: 60,
-                  // blurStyle: BlurStyle.inner,
-                  )
-            ],
+            gradient: AppTheme.primaryGradient,
           ),
+          width: 260,
           child: Column(
             children: [
-              const SideMenuHeader(),
+              Stack(
+                alignment: Alignment.topCenter,
+                children: [
+                  if (!Responsive.isDesktop(context))
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        child: IconButton(
+                          onPressed: () {
+                            homeProvider.homeScaffoldKey.currentState!
+                                .closeDrawer();
+                          },
+                          icon: const Icon(Icons.close),
+                          color: AppColors.text,
+                        ),
+                      ),
+                    ),
+                  const SideMenuHeader(),
+                ],
+              ),
               ...menuItems.mapIndexed(
                 (e, i) => SideMenuItem(
                   isSelected: homeProvider.selectSideMenuItemIndex == i,
@@ -111,14 +124,33 @@ class SideMenu extends StatelessWidget {
   }
 
   void setActiveMenu(BuildContext ctx, AppLayoutProvider homeProvider) {
-    Map<String, int> urlToIndex = {
-      '/tasks': 0,
-      '/profile': 1,
-      '/settings': 2,
-    };
-
     String currentUrl = ctx.router.currentUrl;
-    homeProvider.selectSideMenuItemIndex = urlToIndex[currentUrl] ?? 0;
+    if (currentUrl.contains('profile')) {
+      homeProvider.selectSideMenuItemIndex = 1;
+    } else if (currentUrl.contains('settings')) {
+      homeProvider.selectSideMenuItemIndex = 2;
+    } else {
+      homeProvider.selectSideMenuItemIndex = 0;
+    }
+  }
+}
+
+class SideMenuHeader extends StatelessWidget {
+  const SideMenuHeader({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 30),
+      child: ShaderMask(
+        shaderCallback: (rect) => AppTheme.secondaryGradient.createShader(rect),
+        child: SvgPicture.asset(AssetsPath.fullVerticalLogoWhite),
+      ),
+    );
+
+    // UserDetailsTile();
   }
 }
 
@@ -138,53 +170,68 @@ class SideMenuItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: const EdgeInsets.only(bottom: 10, left: 24, right: 24),
       child: Material(
-        borderRadius: BorderRadius.circular(8),
-        color: isSelected ? Colors.blue[600] : Colors.transparent,
+        borderRadius: BorderRadius.circular(6),
+        color: isSelected ? AppColors.primaryBlue : Colors.transparent,
         child: InkWell(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(6),
           onTap: isSelected ? null : onTap,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
+          splashFactory: InkSparkle.constantTurbulenceSeedSplashFactory,
+          hoverColor: AppColors.primaryBlue,
+          child: Container(
+            decoration: BoxDecoration(
+              color: AppColors.transparent,
+              borderRadius: BorderRadius.circular(6),
+              border: Border.all(
+                width: 1,
+                color: isSelected ? AppColors.text80 : AppColors.transparent,
+              ),
+            ),
+            padding: const EdgeInsets.symmetric(vertical: 8),
             child: Row(
               children: [
                 if (prefix != null) ...[
                   const SizedBox(width: 12),
-                  Icon(
-                    prefix,
-                    color: isSelected ? Colors.white : Colors.black,
-                  ),
+                  Icon(prefix, color: AppColors.text, size: 20),
                   const SizedBox(width: 12),
                 ],
-                Text(
-                  title,
-                  style: TextStyle(
-                    color: isSelected ? Colors.white : Colors.black,
-                  ),
-                ),
+                Text(title, style: AppTextStyle.caption1),
               ],
             ),
           ),
         ),
       ),
     );
-  }
-}
 
-class SideMenuHeader extends StatelessWidget {
-  const SideMenuHeader({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 18),
-      child: SvgPicture.asset(AssetsPath.fullLogoColor, height: 35),
-    );
-
-    // UserDetailsTile();
+    // Padding(
+    //   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 7),
+    //   child: Material(
+    //     borderRadius: BorderRadius.circular(8),
+    //     color: isSelected ? AppColors.primaryBlue : Colors.transparent,
+    //     child: InkWell(
+    //       customBorder: Border.all(color: AppColors.text80, width: 1),
+    //       borderRadius: BorderRadius.circular(8),
+    //       onTap: isSelected ? null : onTap,
+    //       child: Padding(
+    //         padding: const EdgeInsets.symmetric(vertical: 8),
+    //         child: Row(
+    //           children: [
+    //             if (prefix != null) ...[
+    //               const SizedBox(width: 12),
+    //               Icon(prefix, color: AppColors.text),
+    //               const SizedBox(width: 12),
+    //             ],
+    //             Text(
+    //               title,
+    //               style: const TextStyle(color: AppColors.text),
+    //             ),
+    //           ],
+    //         ),
+    //       ),
+    //     ),
+    //   ),
+    // );
   }
 }
 
